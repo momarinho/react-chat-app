@@ -13,7 +13,7 @@ import SendMessage from './SendMessage';
 const ChatBox = () => {
   const [messages, setMessages] = useState([]);
 
-  const scroll = useRef()
+  const scroll = useRef();
 
   useEffect(() => {
     const q = query(
@@ -32,16 +32,16 @@ const ChatBox = () => {
   }, []);
 
   return (
-    <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 h-screen">
-      <div className="bg-white shadow overflow-hidden sm:rounded-md mt-6 max-h-[calc(100vh-9rem)]">
-        <ul className="">
-          {messages?.map((message) => (
-            <Message key={message.id} message={message} />
-          ))}
-        </ul>
+    <main className="min-h-screen mt-2 mr-2 ml-2 mb-16 flex flex-col justify-between">
+      <div className="flex-grow overflow-auto">
+        {messages?.map((message) => (
+          <Message key={message.id} message={message} />
+        ))}
       </div>
       <span ref={scroll}></span>
-      <SendMessage scroll={scroll} />
+      <div className="sticky bottom-0 left-0 right-0">
+        <SendMessage scroll={scroll} />
+      </div>
     </main>
   );
 };

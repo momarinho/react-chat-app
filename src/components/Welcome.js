@@ -9,7 +9,7 @@ import {
 const Welcome = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showModal, setShowModal] = useState(true); // Initialize the modal to be shown
+  const [showModal, setShowModal] = useState(false); // Initialize the modal to be shown
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
@@ -44,11 +44,10 @@ const Welcome = () => {
 
   return (
     <>
-      {/* Show the modal only if `showModal` is true */}
       {showModal && (
         <div className="fixed z-10 inset-0 overflow-y-auto">
           <div className="flex items-center justify-center min-h-screen px-4 text-center">
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+            <div className="fixed inset-0 bg-black bg-opacity-75 transition-opacity"></div>
             <div
               className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full"
               role="dialog"
@@ -103,12 +102,20 @@ const Welcome = () => {
                     onChange={handlePasswordChange}
                     className="bg-gray-200 rounded-md py-2 px-4 w-full"
                   />
-                  <button
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                    Sign In
-                  </button>
+                  <div className="flex justify-around">
+                    <button
+                      type="submit"
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                      Sign In
+                    </button>
+                    <button
+                      type="submit"
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                      Register
+                    </button>
+                  </div>
                 </form>
                 <hr className="my-4" />
                 <button
@@ -124,7 +131,8 @@ const Welcome = () => {
       )}
       {/* Render the rest of the page */}
       <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-4xl font-bold mb-4">Welcome to my app</h1>
+        <h1 className="text-4xl text-white font-bold mb-4">Welcome!</h1>
+        <p className='text-gray-100 mb-4'>Login to start...</p>
         <button
           onClick={() => setShowModal(true)}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

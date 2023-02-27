@@ -10,7 +10,7 @@ function App() {
   const [user] = useAuthState(auth);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-900">
       <Navbar />
       {!user ? <Welcome /> : <ChatBox />}
     </div>

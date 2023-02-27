@@ -6,10 +6,10 @@ import { GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
 const Navbar = () => {
   const [user] = useAuthState(auth);
 
-  const googleSignIn = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithRedirect(auth, provider);
-  };
+  // const googleSignIn = () => {
+  //   const provider = new GoogleAuthProvider();
+  //   signInWithRedirect(auth, provider);
+  // };
 
   const googleSignOut = () => {
     auth.signOut();
