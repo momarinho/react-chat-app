@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Navbar from './components/Navbar';
 import './index.css';
 import Welcome from './components/Welcome';
+import ChatBox from './components/ChatBox';
 
 function App() {
   const [user] = useAuthState(auth);
@@ -11,7 +12,7 @@ function App() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      {!user ? <Welcome /> : <h1>General Kenobi</h1>}
+      {!user ? <Welcome /> : <ChatBox />}
     </div>
   );
 }

@@ -27,13 +27,7 @@ const Navbar = () => {
           Sign Out
         </button>
       ) : (
-        <button
-          onClick={googleSignIn}
-          type="button"
-          className="bg-white hover:bg-gray-100 text-blue-700 font-semibold py-2 px-4 border border-gray-400 rounded shadow sign-in"
-        >
-          Sign In
-        </button>
+        <h3 className='text-white'>Hello there</h3>
       )}
     </nav>
   );

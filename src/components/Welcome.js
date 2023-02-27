@@ -9,6 +9,7 @@ import {
 const Welcome = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showModal, setShowModal] = useState(true); // Initialize the modal to be shown
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
@@ -37,54 +38,101 @@ const Welcome = () => {
       });
   };
 
-  return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h2 className="text-3xl font-bold text-center mb-8">Welcome!</h2>
-      <p className="text-center text-gray-600 mb-8">
-        Sign in to start chatting
-      </p>
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
-      <form
-        onSubmit={handleLoginFormSubmit}
-        className="flex flex-col items-center"
-      >
-        <label htmlFor="email" className="sr-only">
-          Email
-        </label>
-        <input
-          id="email"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={handleEmailChange}
-          className="bg-gray-200 rounded-md py-2 px-4 w-full mb-4"
-        />
-        <label htmlFor="password" className="sr-only">
-          Password
-        </label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
-          className="bg-gray-200 rounded-md py-2 px-4 w-full mb-4"
-        />
+  return (
+    <>
+      {/* Show the modal only if `showModal` is true */}
+      {showModal && (
+        <div className="fixed z-10 inset-0 overflow-y-auto">
+          <div className="flex items-center justify-center min-h-screen px-4 text-center">
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+            <div
+              className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-headline"
+            >
+              <div className="bg-gray-100 px-4 py-3 flex justify-between">
+                <h2 className="text-2xl font-bold">Login</h2>
+                <button
+                  onClick={closeModal}
+                  className="text-gray-600 hover:text-gray-900 focus:outline-none"
+                >
+                  <span className="sr-only">Close</span>
+                  <svg
+                    className="h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <form onSubmit={handleLoginFormSubmit} className="space-y-4">
+                  <label htmlFor="email" className="sr-only">
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={handleEmailChange}
+                    className="bg-gray-200 rounded-md py-2 px-4 w-full"
+                  />
+                  <label htmlFor="password" className="sr-only">
+                    Password
+                  </label>
+                  <input
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                    className="bg-gray-200 rounded-md py-2 px-4 w-full"
+                  />
+                  <button
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  >
+                    Sign In
+                  </button>
+                </form>
+                <hr className="my-4" />
+                <button
+                  onClick={googleSignIn}
+                  className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                >
+                  Sign in with Google
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Render the rest of the page */}
+      <div className="flex flex-col items-center justify-center h-screen">
+        <h1 className="text-4xl font-bold mb-4">Welcome to my app</h1>
         <button
-          className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="submit"
+          onClick={() => setShowModal(true)}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
-          Sign In with Email and Password
+          Sign In
         </button>
-      </form>
-      <button
-        className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4"
-        onClick={googleSignIn}
-        type="button"
-      >
-        Sign In with Google
-      </button>
-    </main>
+      </div>
+    </>
   );
 };
 
