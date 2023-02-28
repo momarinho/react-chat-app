@@ -58,3 +58,7 @@ export { db, auth };
   <li>Firebase Realtime Database</li>
   <li>Tailwind CSS</li>
 </ul>
+
+
+<h1>Screenshot:</h1>
+<img src='./assets/00.png'/>
