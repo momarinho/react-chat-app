@@ -19,6 +19,18 @@ export default function Register() {
 
   const handleRegisterFormSubmit = (event) => {
     event.preventDefault();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert('Invalid email');
+      return;
+    }
+
+    if (password.length < 8) {
+      alert('Password must be ate least 8 chars long');
+      return;
+    }
+
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -40,12 +52,12 @@ export default function Register() {
           Email
         </label>
         <input
+          className="bg-gray-200 rounded-md py-2 px-4 w-full"
           id="email"
           type="email"
           placeholder="Email"
           value={email}
           onChange={handleEmailChange}
-          className="bg-gray-200 rounded-md py-2 px-4 w-full"
         />
         <label htmlFor="password" className="sr-only">
           Password

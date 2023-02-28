@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { auth, db } from '../config/firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
-const EmoticonPicker = ({ onEmoticonSelect }) => {
+const EmoticonPicker = ({ onEmoticonSelect, onClose }) => {
   const emoticons = [
     '😀',
     '😂',
@@ -28,6 +28,13 @@ const EmoticonPicker = ({ onEmoticonSelect }) => {
           {emoticon}
         </button>
       ))}
+      <button
+        type="button"
+        className="text-white mx-1 my-1 px-2 rounded-lg bg-red-600 hover:bg-red-700 focus:outline-none"
+        onClick={onClose}
+      >
+        X
+      </button>
     </div>
   );
 };
@@ -62,6 +69,10 @@ const SendMessage = ({ scroll }) => {
     setShowEmoticonPicker(false);
   };
 
+  const handleCloseEmoticonPicker = () => {
+    setShowEmoticonPicker(false);
+  };
+
   return (
     <div className="py-2 bg-gray-700 fixed bottom-0 left-0 w-full">
       <form onSubmit={sendMessage} className="flex items-center">
@@ -87,7 +98,15 @@ const SendMessage = ({ scroll }) => {
         </button>
         {showEmoticonPicker && (
           <div className="absolute bottom-10 right-0 z-50 bg-white rounded-lg shadow-lg">
-            <EmoticonPicker onEmoticonSelect={handleEmoticonSelect} />
+            <EmoticonPicker
+              onEmoticonSelect={handleEmoticonSelect}
+              onClose={handleCloseEmoticonPicker}
+            />
+            <button
+              type="button"
+              className="absolute top-0 right-0 m-2 text-gray-400 hover:text-gray-600 focus:outline-none"
+              onClick={handleCloseEmoticonPicker}
+            ></button>
           </div>
         )}
         <button

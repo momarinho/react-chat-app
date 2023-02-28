@@ -31,7 +31,9 @@ const Navbar = () => {
           Sign Out
         </button>
       ) : (
-        <h3 className="text-white">Hello there</h3>
+        <p className="text-sm">
+          &copy; {new Date().getFullYear()} By: Mateus Marinho
+        </p>
       )}
     </nav>
   );
