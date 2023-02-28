@@ -19,10 +19,15 @@
   <li>Enable email and password authentication and Google authentication in your Firebase project.</li>
   <li>Create a firebase.js file in the config folder and export the Firebase configuration details as shown below:</li>
 </ol>
+
 javascript
+
 Copy code
+
 import { initializeApp } from 'firebase/app';
+
 import { getFirestore } from 'firebase/firestore';
+
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -30,10 +35,13 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
+
 const auth = getAuth(app);
 
 export { db, auth };
+
 <ol start="8">
   <li>Start the application using <code>npm start</code>.</li>
 </ol>
