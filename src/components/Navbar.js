@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { auth } from '../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
+
+  let navigate = useNavigate();
 
   // const googleSignIn = () => {
   //   const provider = new GoogleAuthProvider();
@@ -13,6 +16,7 @@ const Navbar = () => {
 
   const googleSignOut = () => {
     auth.signOut();
+    navigate('/');
   };
 
   return (
@@ -27,7 +31,7 @@ const Navbar = () => {
           Sign Out
         </button>
       ) : (
-        <h3 className='text-white'>Hello there</h3>
+        <h3 className="text-white">Hello there</h3>
       )}
     </nav>
   );

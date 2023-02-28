@@ -2,18 +2,29 @@ import React, { useState } from 'react';
 import { auth } from '../config/firebase';
 import {
   GoogleAuthProvider,
-  signInWithRedirect,
+  signInWithPopup,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Welcome = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showModal, setShowModal] = useState(false); // Initialize the modal to be shown
 
+  let navigate = useNavigate();
+
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
-    signInWithRedirect(auth, provider);
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log('Signed in with Google successfully');
+        navigate('/chatbox');
+      })
+      .catch((error) => {
+        console.error('Error signing in with Google', error);
+      });
   };
 
   const handleEmailChange = (event) => {
@@ -30,6 +41,7 @@ const Welcome = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log('Logged in as:', user.email);
+        navigate('/chatbox');
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -40,6 +52,10 @@ const Welcome = () => {
 
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  const handleRegister = () => {
+    navigate('/register');
   };
 
   return (
@@ -54,11 +70,11 @@ const Welcome = () => {
               aria-modal="true"
               aria-labelledby="modal-headline"
             >
-              <div className="bg-gray-100 px-4 py-3 flex justify-between">
-                <h2 className="text-2xl font-bold">Login</h2>
+              <div className="bg-blue-900 px-4 py-3 flex justify-between">
+                <h2 className="text-2xl text-gray-100 font-bold">Login</h2>
                 <button
                   onClick={closeModal}
-                  className="text-gray-600 hover:text-gray-900 focus:outline-none"
+                  className="text-red-600 hover:text-red-500 focus:outline-none"
                 >
                   <span className="sr-only">Close</span>
                   <svg
@@ -78,7 +94,7 @@ const Welcome = () => {
                   </svg>
                 </button>
               </div>
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <div className="bg-gray-700 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <form onSubmit={handleLoginFormSubmit} className="space-y-4">
                   <label htmlFor="email" className="sr-only">
                     Email
@@ -102,16 +118,17 @@ const Welcome = () => {
                     onChange={handlePasswordChange}
                     className="bg-gray-200 rounded-md py-2 px-4 w-full"
                   />
-                  <div className="flex justify-around">
+                  <div className="flex justify-center">
                     <button
                       type="submit"
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                      className="mr-1 bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
                     >
                       Sign In
                     </button>
                     <button
+                      onClick={handleRegister}
                       type="submit"
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                      className="bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded"
                     >
                       Register
                     </button>
@@ -132,7 +149,7 @@ const Welcome = () => {
       {/* Render the rest of the page */}
       <div className="flex flex-col items-center justify-center h-screen">
         <h1 className="text-4xl text-white font-bold mb-4">Welcome!</h1>
-        <p className='text-gray-100 mb-4'>Login to start...</p>
+        <p className="text-gray-100 mb-4">Login to start...</p>
         <button
           onClick={() => setShowModal(true)}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

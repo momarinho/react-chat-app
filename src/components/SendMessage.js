@@ -27,7 +27,7 @@ const SendMessage = ({ scroll }) => {
   };
 
   return (
-    <div className="py-2 bg-gray-700 text-gray-300 fixed bottom-0 left-0 w-full">
+    <div className="py-2 bg-gray-700 fixed bottom-0 left-0 w-full">
       <form onSubmit={sendMessage} className="flex items-center">
         <label htmlFor="messageInput" className="sr-only">
           Enter Message
